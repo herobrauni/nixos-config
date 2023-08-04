@@ -68,7 +68,7 @@
 
     # We first mount the btrfs root to /mnt
     # so we can manipulate btrfs subvolumes.
-    mount -o subvol=/ /dev/sdd2 /mnt
+    mount -o subvol=/ /dev/disk/by-uuid/ac6e86d7-ad19-4acb-b2fa-870428f2227b /mnt
 
     # While we're tempted to just delete /root and create
     # a new snapshot from /root-blank, /root is already
