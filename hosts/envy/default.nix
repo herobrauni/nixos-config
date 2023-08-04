@@ -2,14 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, home-manager, nur, ... } @ args:
 
-#let
-#  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-#in
 {
   imports =
     [
+        # This adds a nur configuration option.
+        # Use `config.nur.repos.<user>.<package-name>` in NixOS Module for packages from the NUR.
+        nur.nixosModules.nur
 #      "${impermanence}/nixos.nix"
       ./hardware-configuration.nix
     ];
