@@ -13,6 +13,5 @@
     sbctl
     efibootmgr
     fio
-    firefox
   ];
 }
