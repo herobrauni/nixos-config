@@ -26,7 +26,7 @@
             home-manager.useUserPackages = true;
 
             home-manager.extraSpecialArgs = inputs;
-            home-manager.users.brauni = import ./home;
+#            home-manager.users.brauni = import ./home;
           }
         ];
       };
