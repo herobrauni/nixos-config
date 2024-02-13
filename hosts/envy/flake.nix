@@ -1,15 +1,6 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.btrfs.autoScrub = {
@@ -27,26 +18,26 @@
   boot.kernelPatches = [
     {
       name = "sound_1";
-      patch = /patches/sound_envy/1.patch;
+      patch = /etc/nixos/patches/sound_envy/1.patch;
     }
     {
       name = "sound_2";
-      patch = /patches/sound_envy/2.patch;
+      patch = /etc/nixos/patches/sound_envy/2.patch;
     }
     {
       name = "sound_3";
-      patch = /patches/sound_envy/3.patch;
+      patch = /etc/nixos/patches/sound_envy/3.patch;
     }
     {
       name = "sound_4";
-      patch = /patches/sound_envy/4.patch;
+      patch = /etc/nixos/patches/sound_envy/4.patch;
     }
     {
       name = "sound_5";
-      patch = /patches/sound_envy/5.patch;
+      patch = /etc/nixos/patches/sound_envy/5.patch;
     }
   ];
-  
+
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
@@ -79,7 +70,7 @@
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  
+
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
