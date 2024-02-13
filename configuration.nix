@@ -27,23 +27,23 @@
   boot.kernelPatches = [
     {
       name = "sound_1";
-      patch = /kernels/sound_envy/1.patch;
+      patch = /patches/sound_envy/1.patch;
     }
     {
       name = "sound_2";
-      patch = /kernels/sound_envy/2.patch;
+      patch = /patches/sound_envy/2.patch;
     }
     {
       name = "sound_3";
-      patch = /kernels/sound_envy/3.patch;
+      patch = /patches/sound_envy/3.patch;
     }
     {
       name = "sound_4";
-      patch = /kernels/sound_envy/4.patch;
+      patch = /patches/sound_envy/4.patch;
     }
     {
       name = "sound_5";
-      patch = /kernels/sound_envy/5.patch;
+      patch = /patches/sound_envy/5.patch;
     }
   ];
   
