@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.btrfs.autoScrub = {
@@ -8,6 +12,8 @@
     interval = "weekly";
     fileSystems = [ "/" ];
   };
+
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
