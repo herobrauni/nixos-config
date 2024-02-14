@@ -2,13 +2,9 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-#let
-#  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-#in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
-#    "${impermanence}/nixos.nix"
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -86,31 +82,11 @@
     };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
-#  boot.resumeDevice = "/dev/disk/by-uuid/03de4d73-9d30-407d-b92c-01364b571d99";
-#  boot.kernelParams = [ "resume_offset=3155200" ];
+  boot.resumeDevice = "/dev/disk/by-uuid/03de4d73-9d30-407d-b92c-01364b571d99";
+  boot.kernelParams = [ "resume_offset=3155200" ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  environment.persistence."/persist" = { 
-    directories = [
-      "/etc/ssh"
-      "/etc/NetworkManager"
-      "/var/db/sudo/lectured"
-      "/kernels"
-    ];
-    files = [
-      "/etc/machine-id"
-      "/etc/nix/id_rsa"
-      "/var/lib/logrotate.status"
-      "/shared.password"
-    ];
-  };
 }

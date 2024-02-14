@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, home-manager, ... } @ args :
 
 {
   imports = [
     ./hardware-configuration.nix
+    ./patches.nix
+    ./impermanence.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -18,58 +20,16 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.kernelPatches = [
-    {
-      name = "sound_1";
-      patch = ./sound_envy/1.patch;
-    }
-    {
-      name = "sound_2";
-      patch = ./sound_envy/2.patch;
-    }
-    {
-      name = "sound_3";
-      patch = ./sound_envy/3.patch;
-    }
-    {
-      name = "sound_4";
-      patch = ./sound_envy/4.patch;
-    }
-    {
-      name = "sound_5";
-      patch = ./sound_envy/5.patch;
-    }
-  ];
-
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
 
 
   networking.hostName = "envy"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
   time.timeZone = "Europe/Paris";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
 
@@ -80,11 +40,7 @@
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
   services.xserver.xkb.variant = "intl";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -106,10 +62,8 @@
   users.mutableUsers = false;
 
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     htop
     btop
