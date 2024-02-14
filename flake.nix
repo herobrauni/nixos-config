@@ -5,12 +5,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
     home-manager,
+    impermanence,
     ...
   }: {
     nixosConfigurations = {
@@ -18,6 +20,7 @@
         system = "x86_64-linux";
 
         modules = [
+          impermanence.nixosModules.impermanence
           ./hosts/envy
 
           home-manager.nixosModules.home-manager
