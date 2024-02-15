@@ -50,6 +50,12 @@
     { device = "/dev/disk/by-uuid/03de4d73-9d30-407d-b92c-01364b571d99";
       fsType = "btrfs";
       options = [ "subvol=@nixos_nixos_config" "compress=zstd" "noatime" ];
+    }; 
+
+  fileSystems."/share" =
+    { device = "/dev/disk/by-uuid/03de4d73-9d30-407d-b92c-01364b571d99";
+      fsType = "btrfs";
+      options = [ "subvol=@share" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/persist" =
@@ -77,7 +83,6 @@
       fsType = "btrfs";
       options = [ "subvol=@nixos_swap" "noatime"  ];
     };
-
 
 #  environment.etc."crypttab".text = ''
 #      truecrypt-volume /dev/nvme0n1p5 /shared.password tcrypt-veracrypt,noauto
