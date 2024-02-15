@@ -6,7 +6,7 @@
     ./patches.nix
     ./impermanence.nix
     ./pkgs.nix
-    ./home.nix
+#    ./home.nix
   ];
 
   users.users.brauni = {
