@@ -25,7 +25,6 @@
     nixosConfigurations = {
       envy = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        boot.loader.systemd-boot.enable = lib.mkForce false;
         boot.lanzaboote = {
           enable = true;
           pkiBundle = "/share/secureboot";
