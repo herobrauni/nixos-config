@@ -86,7 +86,7 @@
     };
 
   environment.etc."crypttab".text = ''
-     truecrypt-volume /dev/nvme0n1p5 /share/shared.password tcrypt-veracrypt,noauto
+     truecrypt-volume /dev/nvme0n1p5 /shared.password tcrypt-veracrypt,noauto
    '';
 
   fileSystems."/shared".device = "/dev/mapper/truecrypt-volume";
