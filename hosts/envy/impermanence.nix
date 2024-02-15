@@ -47,7 +47,7 @@
       "/etc/machine-id"
       "/etc/nix/id_rsa"
       "/var/lib/logrotate.status"
-      # "/shared.password"
+      "/shared.password"
     ];
   };
 }
