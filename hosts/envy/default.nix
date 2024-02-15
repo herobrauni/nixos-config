@@ -18,6 +18,7 @@
     ];
     initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
   };
+  users.mutableUsers = false;
 
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -52,6 +53,5 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  users.mutableUsers = false;
   system.stateVersion = "23.11"; # Did you read the comment?
 }
