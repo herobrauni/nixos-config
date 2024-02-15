@@ -25,10 +25,6 @@
     nixosConfigurations = {
       envy = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        boot.lanzaboote = {
-          enable = true;
-          pkiBundle = "/share/secureboot";
-        };
         modules = [
           impermanence.nixosModules.impermanence
           lanzaboote.nixosModules.lanzaboote

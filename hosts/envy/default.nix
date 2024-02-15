@@ -23,6 +23,10 @@
 
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/share/secureboot";
+  };
 
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
