@@ -11,6 +11,5 @@
     git
     micro
     sbctl
-    bootctl
   ];
 }
