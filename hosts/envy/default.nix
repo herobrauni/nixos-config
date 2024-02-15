@@ -7,6 +7,7 @@
     ./impermanence.nix
     ./pkgs.nix
 #    ./home.nix
+    ./secure-boot.nix
   ];
 
   users.users.brauni = {
