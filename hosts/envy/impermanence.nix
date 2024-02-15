@@ -18,6 +18,7 @@
       "/etc/NetworkManager"
       "/var/db/sudo/lectured"
       "/kernels"
+      "/etc/secureboot"
     ];
     files = [
       "/etc/machine-id"
