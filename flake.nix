@@ -7,6 +7,11 @@
     # home-manager.url = "github:nix-community/home-manager/release-23.11";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs @ {
@@ -14,16 +19,21 @@
     nixpkgs,
     home-manager,
     impermanence,
+    lanzaboote,
     ...
   }: {
     nixosConfigurations = {
       envy = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
+        boot.loader.systemd-boot.enable = lib.mkForce false;
+        boot.lanzaboote = {
+          enable = true;
+          pkiBundle = "/share/secureboot";
+        };
         modules = [
           impermanence.nixosModules.impermanence
+          lanzaboote.nixosModules.lanzaboote
           ./hosts/envy
-
           # home-manager.nixosModules.home-manager
           # {
           #   home-manager.useGlobalPkgs = true;

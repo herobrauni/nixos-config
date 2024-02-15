@@ -10,5 +10,7 @@
     btop
     git
     micro
+    sbctl
+    bootctl
   ];
 }
