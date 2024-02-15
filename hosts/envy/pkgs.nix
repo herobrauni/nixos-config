@@ -11,5 +11,7 @@
     git
     micro
     sbctl
+    tree
+    vlc
   ];
 }

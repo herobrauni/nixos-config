@@ -54,6 +54,7 @@
 
   fileSystems."/share" =
     { device = "/dev/disk/by-uuid/03de4d73-9d30-407d-b92c-01364b571d99";
+      neededForBoot = true;
       fsType = "btrfs";
       options = [ "subvol=@share" "compress=zstd" "noatime" ];
     };
@@ -84,11 +85,11 @@
       options = [ "subvol=@nixos_swap" "noatime"  ];
     };
 
-#  environment.etc."crypttab".text = ''
-#      truecrypt-volume /dev/nvme0n1p5 /shared.password tcrypt-veracrypt,noauto
-#    '';
+  environment.etc."crypttab".text = ''
+     truecrypt-volume /dev/nvme0n1p5 /share/shared.password tcrypt-veracrypt,noauto
+   '';
 
-#  fileSystems."/shared".device = "/dev/mapper/truecrypt-volume";
+  fileSystems."/shared".device = "/dev/mapper/truecrypt-volume";
 
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
