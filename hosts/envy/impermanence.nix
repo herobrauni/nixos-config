@@ -1,7 +1,17 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
-  environment.persistence."/persist" = { 
+  config,
+  pkgs,
+  ...
+}: {
+
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    mkdir /mnt
+    mount -t btrfs /dev/mapper/enc /mnt
+    btrfs subvolume delete /mnt/@nixos_root
+    btrfs subvolume snapshot /mnt/@nixos_root_blank /mnt/@nixos_root
+  '';
+
+  environment.persistence."/persist" = {
     directories = [
       "/etc/ssh"
       "/etc/NetworkManager"

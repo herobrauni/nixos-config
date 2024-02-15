@@ -5,17 +5,11 @@
     ./hardware-configuration.nix
     ./patches.nix
     ./impermanence.nix
+    ./pkgs.nix
+    ./home.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-    fileSystems = [ "/" ];
-  };
-
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -32,11 +26,9 @@
 
   services.xserver.enable = true;
 
-
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
@@ -49,26 +41,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.brauni = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-    ];
-    initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
-  };
   users.mutableUsers = false;
-
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    htop
-    btop
-    git
-    micro
-  ];
   system.stateVersion = "23.11"; # Did you read the comment?
 }
