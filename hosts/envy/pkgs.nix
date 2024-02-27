@@ -13,5 +13,6 @@
     sbctl
     tree
     vlc
+    vscode
   ];
 }
