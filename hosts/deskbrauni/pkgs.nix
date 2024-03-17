@@ -1,0 +1,18 @@
+{
+  config,
+  pkgs,
+  ...
+}: {
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    htop
+    btop
+    git
+    micro
+    sbctl
+    tree
+    vlc
+    vscode
+  ];
+}

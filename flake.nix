@@ -39,6 +39,14 @@
           # }
         ];
       };
+      deskbrauni = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          impermanence.nixosModules.impermanence
+          # lanzaboote.nixosModules.lanzaboote
+          ./hosts/deskbrauni
+        ];
+      };
     };
   };
 }
