@@ -10,6 +10,8 @@
     # ./secure-boot.nix
   ];
 
+  time.hardwareClockInLocalTime = true;
+
   users.users.brauni = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.

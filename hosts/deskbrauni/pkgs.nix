@@ -4,6 +4,9 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    steam
+    remmina
+    teams-for-linux
     gparted
     vim
     wget
