@@ -51,7 +51,7 @@
       ocismall1 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/oci_small_1
+          ./hosts/ocismall1
         ];
       };
     };
