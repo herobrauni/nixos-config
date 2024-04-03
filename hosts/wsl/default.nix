@@ -10,12 +10,12 @@
 {
   wsl.enable = true;
   wsl.defaultUser = "brauni";
-  networking.hostName = "ocismall1";
+  networking.hostName = "wsl";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     git
-    vscode
     nixpkgs-fmt
   ];
 
