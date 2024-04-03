@@ -1,4 +1,4 @@
-{ config, lib, pkgs, home-manager, ... } @ args :
+{ config, lib, pkgs, ... } @ args :
 
 {
   imports = [
@@ -26,7 +26,7 @@
 
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
 #  boot.lanzaboote = {
 #    enable = true;
 #    pkiBundle = "/share/secureboot";
@@ -47,7 +47,7 @@
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
     powerManagement.enable = false;
 
@@ -62,7 +62,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
-  
+
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl = {
     enable = true;

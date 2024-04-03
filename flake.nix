@@ -17,7 +17,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    home-manager,
     impermanence,
     lanzaboote,
     NixOS-WSL,
