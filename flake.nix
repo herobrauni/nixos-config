@@ -54,6 +54,12 @@
           ./hosts/ocismall1
         ];
       };
+      wsl = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/wsl
+        ];
+      };
     };
   };
 }
