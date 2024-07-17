@@ -8,8 +8,10 @@
   networking.hostName = "puck"; # Define your hostname.
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
+      ./hardware-configuration.nix
+      ./ephemeral.nix
+      ./persistance.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
