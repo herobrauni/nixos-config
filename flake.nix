@@ -66,11 +66,10 @@
     nixosConfigurations = {
       # n100
       puck = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # > Our main nixos configuration file <
-          ./hosts/puck/configuration.nix
-        ];
+        modules = [./hosts/puck];
+        specialArgs = {
+          inherit inputs outputs;
+        };
       };
     };
     # Standalone home-manager configuration entrypoint
