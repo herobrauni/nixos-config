@@ -3,6 +3,9 @@
 , config
 , ...
 }:
+let
+  hostname = config.networking.hostName;
+in
 {
   imports = [ inputs.disko.nixosModules.disko ];
   disko.devices.disk = {
@@ -22,20 +25,24 @@
               mountOptions = [
                 "umask=0077"
               ];
+              extraArgs = "-L ESP";
             };
           };
           luks = {
             size = "100%";
             content = {
               type = "luks";
-              name = "crypted";
+              name = "${hostname}";
               settings = {
                 allowDiscards = true;
                 bypassWorkqueues = true;
               };
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ];
+                extraArgs = [ "-f" 
+                "-L ${hostname}"
+                ];
+                
                 subvolumes = {
                   # the subvolume we wanna wipe
                   "/root" = {

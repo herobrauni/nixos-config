@@ -16,7 +16,6 @@
       directories = [
         "/var/lib/systemd"
         "/var/lib/nixos"
-        "/var/log"
         "/srv"
       ];
     };
