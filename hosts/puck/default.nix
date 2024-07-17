@@ -7,12 +7,13 @@
 {
   networking.hostName = "puck"; # Define your hostname.
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
       ./disko-config.nix
       # ./ephemeral.nix
-      ./persistence.nix
+      # ./persistence.nix
       # ../common/optional/ephemeral-btrfs.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -20,7 +21,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/etc/nixos";
+    flake = "/persist/nixos-config";
   };
 
   # Bootloader.
@@ -88,7 +89,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     fastfetch
     btop
     micro

@@ -36,57 +36,61 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    systems,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    lib = nixpkgs.lib // home-manager.lib;
-    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs (import systems) (
-      system:
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , systems
+    , ...
+    } @ inputs:
+    let
+      inherit (self) outputs;
+      lib = nixpkgs.lib // home-manager.lib;
+      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+      pkgsFor = lib.genAttrs (import systems) (
+        system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-    );
-  in {
-    inherit lib;
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
+      );
+    in
+    {
+      inherit lib;
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
 
-    # overlays = import ./overlays {inherit inputs outputs;};
-    # hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+      # overlays = import ./overlays {inherit inputs outputs;};
+      # hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-    # devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      # devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+      formatter = forEachSystem (pkgs: pkgs.alejandra);
 
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {
-      # n100
-      puck = nixpkgs.lib.nixosSystem {
-        modules = [ ./hosts/puck ];
-        specialArgs = {
-          inherit inputs outputs;
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations = {
+        # n100
+        puck = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/puck
+          ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+      };
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .#your-username@your-hostname'
+      homeConfigurations = {
+        "brauni@puck" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+          ];
         };
       };
     };
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "brauni@puck" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
-        ];
-      };
-    };
-  };
 }

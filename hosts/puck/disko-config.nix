@@ -1,9 +1,14 @@
 # inspiration: https://github.com/nix-community/disko/blob/master/example/luks-btrfs-subvolumes.nix
+{ inputs
+, config
+, ...
+}:
 {
+  imports = [ inputs.disko.nixosModules.disko ];
   disko.devices.disk = {
     "main" = {
       type = "disk";
-      device = "/dev/nvme0n1";
+      device = "/dev/sda";
       content = {
         type = "gpt";
         partitions = {
@@ -30,24 +35,24 @@
               };
               content = {
                 type = "btrfs";
-                extraArgs = ["-f"];
+                extraArgs = [ "-f" ];
                 subvolumes = {
                   # the subvolume we wanna wipe
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = ["compress=zstd" "noatime"];
+                    mountOptions = [ "compress=zstd" "noatime" ];
                   };
                   "/persist" = {
                     mountpoint = "/persist";
-                    mountOptions = ["compress=zstd" "noatime"];
+                    mountOptions = [ "compress=zstd" "noatime" ];
                   };
                   "/log" = {
                     mountpoint = "/var/log";
-                    mountOptions = ["compress=zstd" "noatime"];
+                    mountOptions = [ "compress=zstd" "noatime" ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = ["compress=zstd" "noatime"];
+                    mountOptions = [ "compress=zstd" "noatime" ];
                   };
                 };
               };

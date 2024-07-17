@@ -5,47 +5,14 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
-  # fileSystems."/" =
-  #   { device = "/dev/disk/by-uuid/ed52f6d8-3096-40c4-9cc2-3993a07c0a79";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=root" ];
-  #   };
-
-  # boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/f8307d3d-691d-48dc-b363-2b881f7d337b";
-
-  # fileSystems."/boot" =
-  #   { device = "/dev/disk/by-uuid/60AD-0823";
-  #     fsType = "vfat";
-  #     options = [ "fmask=0077" "dmask=0077" ];
-  #   };
-
-  # fileSystems."/nix" =
-  #   { device = "/dev/disk/by-uuid/ed52f6d8-3096-40c4-9cc2-3993a07c0a79";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=nix" ];
-  #   };
-
-  # fileSystems."/persist" =
-  #   { device = "/dev/disk/by-uuid/ed52f6d8-3096-40c4-9cc2-3993a07c0a79";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=persist" ];
-  #   };
-
-  # fileSystems."/var/log" =
-  #   { device = "/dev/disk/by-uuid/ed52f6d8-3096-40c4-9cc2-3993a07c0a79";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=log" ];
-  #   };
-
-  # swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
