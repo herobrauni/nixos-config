@@ -1,6 +1,6 @@
 # inspiration: https://github.com/nix-community/disko/blob/master/example/luks-btrfs-subvolumes.nix
 {
-  disko.devices.disk = {
+  inputs.disko.devices.disk = {
     "main" = {
       type = "disk";
       device = "/dev/nvme0n1";

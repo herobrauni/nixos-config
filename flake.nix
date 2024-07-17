@@ -70,7 +70,7 @@
     nixosConfigurations = {
       # n100
       puck = nixpkgs.lib.nixosSystem {
-        modules = [./hosts/puck];
+        modules = [ ./hosts/puck ];
         specialArgs = {
           inherit inputs outputs;
         };
