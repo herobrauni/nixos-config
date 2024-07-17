@@ -1,84 +1,91 @@
+# This file contains an ephemeral btrfs root configuration
+# TODO: perhaps partition using disko in the future
 {
   lib,
   config,
   ...
-}: {
-  # https://github.com/trueNAHO/os/blob/master/modules/impermanence/nixos/default.nix
-  options.modules.impermanence.nixos = {
-    btrfsSubvolumes = {
-      enable = lib.mkEnableOption "Btrfs subvolume darling erasure";
+}: let
+  hostname = config.networking.hostName;
+  wipeScript = ''
+    mkdir /tmp -p
+    MNTPOINT=$(mktemp -d)
+    (
+      mount -t btrfs -o subvol=/ /dev/disk/by-label/${hostname} "$MNTPOINT"
+      trap 'umount "$MNTPOINT"' EXIT
 
-      rootFilesystem = lib.mkOption {
-        description = "Path to the Btrfs root filesystem.";
-        example = "/dev/mapper/luks";
-        type = lib.types.str;
-      };
+      echo "Creating needed directories"
+      mkdir -p "$MNTPOINT"/persist/var/{log,lib/{nixos,systemd}}
+      if [ -e "$MNTPOINT/persist/dont-wipe" ]; then
+        echo "Skipping wipe"
+      else
+        echo "Cleaning root subvolume"
+        btrfs subvolume list -o "$MNTPOINT/root" | cut -f9 -d ' ' |
+        while read -r subvolume; do
+          btrfs subvolume delete "$MNTPOINT/$subvolume"
+        done && btrfs subvolume delete "$MNTPOINT/root"
 
-      rootSubvolume = lib.mkOption {
-        description = "Name of the Btrfs root subvolume.";
-        example = "root";
-        type = lib.types.str;
-      };
-    };
-
-    enable = lib.mkEnableOption "impermanence";
-
-    path = lib.mkOption {
-      description = "Path to the persistent storage directory.";
-      example = "/persistent";
-      type = lib.types.str;
+        echo "Restoring blank subvolume"
+        btrfs subvolume snapshot "$MNTPOINT/root-blank" "$MNTPOINT/root"
+      fi
+    )
+  '';
+  phase1Systemd = config.boot.initrd.systemd.enable;
+in {
+  boot.initrd = {
+    supportedFilesystems = ["btrfs"];
+    postDeviceCommands = lib.mkIf (!phase1Systemd) (lib.mkBefore wipeScript);
+    systemd.services.restore-root = lib.mkIf phase1Systemd {
+      description = "Rollback btrfs rootfs";
+      wantedBy = ["initrd.target"];
+      requires = ["dev-disk-by\\x2dlabel-${hostname}.device"];
+      after = [
+        "dev-disk-by\\x2dlabel-${hostname}.device"
+        "systemd-cryptsetup@${hostname}.service"
+      ];
+      before = ["sysroot.mount"];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = wipeScript;
     };
   };
 
-  config = let
-    cfg = config.modules.impermanence.nixos;
-  in
-    lib.mkIf cfg.enable {
-      # https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/3
-      boot.initrd.systemd.services.wipe-root = lib.mkIf cfg.btrfsSubvolumes.enable {
-        description = "Rollback BTRFS root subvolume to a pristine state";
-        wantedBy = ["initrd.target"];
-        after = ["dev-mapper-crypted.device"]; # LUKS process
-        requires = ["dev-mapper-crypted.device"];
-        before = ["sysroot.mount"];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          (
-            set -xe
-
-            btrfs_subvolume_delete_recursive() {
-              btrfs subvolume list -o "$1" |
-                cut -f 9- -d ' ' |
-                while read -r subvolume; do
-                  btrfs_subvolume_delete_recursive "$mount_point/$subvolume"
-                done
-
-              btrfs subvolume delete "$1"
-            }
-
-            mount_point=/mnt
-            mkdir -p "$mount_point"
-            mount -t btrfs "${cfg.btrfsSubvolumes.rootFilesystem}" "$mount_point"
-
-            trap 'umount "$mount_point" && rmdir "$mount_point"' EXIT
-
-            btrfs_subvolume_delete_recursive \
-              "$mount_point/${cfg.btrfsSubvolumes.rootSubvolume}"
-
-            btrfs subvolume create "$mount_point/${cfg.btrfsSubvolumes.rootSubvolume}"
-          )
-        '';
-      };
-
-      fileSystems = {
-        # https://github.com/ryantm/agenix/issues/45#issuecomment-957865406
-        "/etc/ssh" = {
-          depends = [cfg.path];
-          neededForBoot = true;
-        };
-
-        ${cfg.path}.neededForBoot = true;
-      };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [
+        "subvol=root"
+        "compress=zstd"
+      ];
     };
+
+    "/nix" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [
+        "subvol=nix"
+        "noatime"
+        "compress=zstd"
+      ];
+    };
+
+    "/persist" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [
+        "subvol=persist"
+        "compress=zstd"
+      ];
+      neededForBoot = true;
+    };
+
+    "/swap" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [
+        "subvol=swap"
+        "noatime"
+      ];
+    };
+  };
 }

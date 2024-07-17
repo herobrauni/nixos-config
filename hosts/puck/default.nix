@@ -12,7 +12,7 @@
       ./hardware-configuration.nix
       # ./ephemeral.nix
       ./persistence.nix
-      ../common/optional/ephemeral-btrfs.nix
+      # ../common/optional/ephemeral-btrfs.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
