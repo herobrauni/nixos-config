@@ -31,8 +31,7 @@
     agenix
     , impermanence
     , lanzaboote
-
-    ...
+    , ...
   } @ inputs: let
     inherit (self) outputs;
     # Supported systems for your flake packages, shell, etc.
