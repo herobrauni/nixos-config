@@ -12,9 +12,7 @@
       inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
       ./disko-config.nix
-      # ./ephemeral.nix
-      # ./persistence.nix
-      # ../common/optional/ephemeral-btrfs.nix
+      ../common/global
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
