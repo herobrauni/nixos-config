@@ -3,5 +3,5 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  ephemeral = import ./ephemeral.nix;
+  ephemeral = ./ephemeral.nix;
 }
