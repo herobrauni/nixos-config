@@ -11,7 +11,7 @@
       inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
       ./ephemeral.nix
-      ./persistance.nix
+      ./persistence.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
