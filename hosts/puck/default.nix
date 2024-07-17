@@ -10,6 +10,7 @@
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
+      ./disko-config.nix
       # ./ephemeral.nix
       ./persistence.nix
       # ../common/optional/ephemeral-btrfs.nix
