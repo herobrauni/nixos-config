@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, outputs, ... }:
 
 {
   networking.hostName = "puck"; # Define your hostname.
@@ -11,13 +11,6 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
     ];
-  home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
-    users = {
-      # Import your home-manager configuration
-      brauni = import ../../home-manager/home.nix;
-    };
-  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
     enable = true;
