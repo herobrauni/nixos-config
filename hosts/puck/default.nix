@@ -10,8 +10,9 @@
     [ # Include the results of the hardware scan.
       inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
-      ./ephemeral.nix
+      # ./ephemeral.nix
       ./persistence.nix
+      ../common/optional/ephemeral-btrfs.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
