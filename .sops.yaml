@@ -1,0 +1,21 @@
+keys:
+  # Users
+  # - &users:
+  #   - &brauni 7088C7421873E0DB97FF17C2245CAB70B4C225E9
+  # Hosts
+  - &hosts:
+    - &bara age1n7zrujkqtk9jse76jgtt449wz660c8yttwnhesqnhwan3ahw9qvs99yhua
+
+creation_rules:
+  # - path_regex: hosts/celaeno/secrets.ya?ml$
+  #   key_groups:
+  #   - age:
+  #     - *celaeno
+  #     pgp:
+  #     - *misterio
+
+
+  - path_regex: hosts/common/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *bara

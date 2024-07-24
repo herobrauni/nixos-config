@@ -57,7 +57,8 @@
           ".local/share/nix" # trusted settings and repl history
           ".mozilla"
           ".ssh"
-          ".code"
+          ".config/Code"
+          ".bash_history"
         ];
         allowOther = true;
       };
