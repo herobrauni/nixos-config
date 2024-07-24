@@ -59,6 +59,8 @@
           ".ssh"
           ".config/Code"
           ".bash_history"
+          ".vscode"
+          ".config"
         ];
         allowOther = true;
       };
