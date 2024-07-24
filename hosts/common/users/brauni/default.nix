@@ -28,14 +28,14 @@ in {
   #   ];
 
   #   openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/brauni/ssh.pub);
-  #   hashedPasswordFile = config.sops.secrets.brauni-password.path;
-  #   packages = [pkgs.home-manager];
+    hashedPasswordFile = config.sops.secrets.brauni-password.path;
+    packages = [pkgs.home-manager];
   # };
 
-  # sops.secrets.brauni-password = {
-  #   sopsFile = ../../secrets.yaml;
-  #   neededForUsers = true;
-  # };
+  sops.secrets.brauni-password = {
+    sopsFile = ../../secrets.yaml;
+    neededForUsers = true;
+  };
 
   home-manager.users.brauni = import ../../../../home/brauni/${config.networking.hostName}.nix;
 
