@@ -58,9 +58,11 @@
           ".mozilla"
           ".ssh"
           # ".config/Code"
-          ".bash_history"
           ".vscode"
           ".config"
+        ];
+        files = [
+          ".bash_history"
         ];
         allowOther = true;
       };

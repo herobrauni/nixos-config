@@ -47,6 +47,13 @@
 
   hardware.enableRedistributableFirmware = true;
 
+  # Configure keymap in X11
+  services.xserver = {
+    enable = true;
+    xkb.layout = "us";
+    xkb.variant = "intl";
+  };
+
   # Increase open file limit for sudoers
   security.pam.loginLimits = [
     {

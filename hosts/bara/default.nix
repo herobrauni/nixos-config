@@ -17,6 +17,7 @@
       ../common/users/brauni
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -62,30 +63,24 @@
   #services.xserver.desktopManager.xfce.enable = true;
   #services.xserver.displayManager.lightdm.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    enable = true;
-    xkb.layout = "us";
-    xkb.variant = "intl";
-  };
-
   # Configure console keymap
   console.keyMap = "us-acentos";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.brauni = {
-    isNormalUser = true;
-    description = "brauni";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      github-desktop
-      firefox
-      vscode
-      ripgrep
-    ];
-    initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
-  };
-  users.mutableUsers = false;
+  # users.users.brauni = {
+  #   isNormalUser = true;
+  #   description = "brauni";
+  #   extraGroups = [ "networkmanager" "wheel" ];
+  #   packages = with pkgs; [
+  #     github-desktop
+  #     firefox
+  #     vscode
+  #     ripgrep
+  #   ];
+  #   initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
+  # };
+  # users.mutableUsers = false;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -102,25 +97,6 @@
     fmt
     nixpkgs-fmt
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
