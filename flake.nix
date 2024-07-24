@@ -79,11 +79,29 @@
             inherit inputs outputs;
           };
         };
+        # desktop
+        bara = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/bara
+          ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+
       };
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         "brauni@puck" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+          ];
+        };
+        "brauni@bara" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
