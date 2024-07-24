@@ -71,14 +71,14 @@
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
         # n100
-        puck = nixpkgs.lib.nixosSystem {
-          modules = [
-            ./hosts/puck
-          ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
+        # puck = nixpkgs.lib.nixosSystem {
+        #   modules = [
+        #     ./hosts/puck
+        #   ];
+        #   specialArgs = {
+        #     inherit inputs outputs;
+        #   };
+        # };
         # desktop
         bara = nixpkgs.lib.nixosSystem {
           modules = [
