@@ -93,21 +93,21 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "brauni@puck" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
-          ];
+        # n100
+        "brauni@puck" = lib.homeManagerConfiguration {
+          modules = [ ./home/brauni/puck.nix ./home/brauni/nixpkgs.nix ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
         };
-        "brauni@bara" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
-          ];
+        # desktop
+        "brauni@bara" = lib.homeManagerConfiguration {
+          modules = [ ./home/brauni/bara.nix ./home/brauni/nixpkgs.nix ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
         };
       };
     };

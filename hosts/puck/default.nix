@@ -13,8 +13,8 @@
       ./hardware-configuration.nix
       ./disko-config.nix
       ../common/global
-      ../common/optional/encrypted-root.nix
       ../common/optional/ephemeral-btrfs.nix
+      ../common/users/brauni
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
@@ -27,6 +27,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 10;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.consoleLogLevel = 0;
 
@@ -98,6 +99,7 @@
     wget
     fmt
     nixpkgs-fmt
+    ripgrep
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
