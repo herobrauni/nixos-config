@@ -57,10 +57,10 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # services.displayManager.sddm.enable = true;
-  # services.desktopManager.plasma6.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  #services.xserver.desktopManager.xfce.enable = true;
+  #services.xserver.displayManager.lightdm.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -81,6 +81,7 @@
       github-desktop
       firefox
       vscode
+      ripgrep
     ];
     initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
   };
