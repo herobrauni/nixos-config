@@ -57,7 +57,7 @@
           ".local/share/nix" # trusted settings and repl history
           ".mozilla"
           ".ssh"
-          ".config/Code"
+          # ".config/Code"
           ".bash_history"
           ".vscode"
           ".config"
