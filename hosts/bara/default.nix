@@ -13,8 +13,8 @@
       ./hardware-configuration.nix
       ./disko-config.nix
       ../common/global
-      # ../common/optional/encrypted-root.nix
       ../common/optional/ephemeral-btrfs.nix
+      ../common/users/brauni
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   programs.nh = {
