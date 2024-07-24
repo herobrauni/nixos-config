@@ -57,10 +57,11 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  services.displayManager.ly.enable = true;
-  # services.desktopManager.xfce4.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.desktopManager.plasma6.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
-  
+  services.xserver.displayManager.ly.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;
