@@ -39,10 +39,10 @@
   home = {
     username = lib.mkDefault "brauni";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
-    stateVersion = lib.mkDefault "22.05";
+    stateVersion = lib.mkDefault "24.05";
     sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
-      FLAKE = "$HOME/Documents/NixConfig";
+      FLAKE = "$HOME/Documents/nixos-config";
     };
 
     persistence = {
