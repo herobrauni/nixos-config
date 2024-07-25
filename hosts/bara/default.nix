@@ -68,21 +68,6 @@
   # Configure console keymap
   console.keyMap = "us-acentos";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.brauni = {
-  #   isNormalUser = true;
-  #   description = "brauni";
-  #   extraGroups = [ "networkmanager" "wheel" ];
-  #   packages = with pkgs; [
-  #     github-desktop
-  #     firefox
-  #     vscode
-  #     ripgrep
-  #   ];
-  #   initialHashedPassword = "$y$j9T$d7EVWIrLInhGgEObbWa0A1$jomM5R056rhtJOOBH5vxC6GRnPMdqCb23ZKNWvqv1L9";
-  # };
-  # users.mutableUsers = false;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
