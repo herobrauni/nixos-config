@@ -11,7 +11,7 @@
             ".cache/oh-my-zsh"
           ];
           files = [
-            ".zsh_history"
+            # ".zsh_history"
             ".p10k.zsh"
           ];
         };
@@ -25,15 +25,16 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     historySubstringSearch.enable = true;
+    history.path = "$HOME/Documents/zsh_history"; 
     initExtra = "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh";
-    zplug = {
+    antidote = {
       enable = true;
       plugins = [
-        { name = "zsh-users/zsh-syntax-highlighting"; } # Simple plugin installation
-        { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-        { name = "zsh-users/zsh-completions"; } # Simple plugin installation
-
-        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+        "romkatv/powerlevel10k"
+        "zsh-users/zsh-syntax-highlighting"
+        "zsh-users/zsh-autosuggestions"
+        "zsh-users/zsh-completions"
+        "ael-code/zsh-colored-man-pages"
       ];
     };
     oh-my-zsh = {
@@ -47,12 +48,11 @@
         "pip"
         "kubectl"
         "terraform"
-        "colored-man-pages"
       ];
     };
     shellAliases = {
       docker-compose = "podman-compose";
-      ls = "eza --icons";
+      # ls = "eza --icons";
       jq = "jaq";
       f = "fuck"; # in case zsh plugin's #1 suggestion won't do
       # ssh = "kitten ssh";  # for kitty
