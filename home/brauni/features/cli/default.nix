@@ -18,6 +18,7 @@
     # ./xpo.nix
     # ./fzf.nix
     # ./jira.nix
+    ./zsh.nix
   ];
   home.packages = with pkgs; [
     comma # Install and run programs by sticking a , before them
