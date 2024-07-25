@@ -58,8 +58,10 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.displayManager.sddm.enable = true;
+  #services.desktopManager.plasma6.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome .enable = true;
   #services.xserver.desktopManager.xfce.enable = true;
   #services.xserver.displayManager.lightdm.enable = true;
 
@@ -84,6 +86,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -96,6 +104,7 @@
     wget
     fmt
     nixpkgs-fmt
+    yubikey-personalization
   ];
 
   # This value determines the NixOS release from which the default

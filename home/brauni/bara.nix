@@ -4,7 +4,7 @@
 }: {
   imports = [
     ./global
-    # ./features/desktop/hyprland
+    ./features/desktop/gnome
     # ./features/rgb
     # ./features/productivity
     # ./features/pass

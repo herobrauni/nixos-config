@@ -57,12 +57,15 @@
           ".local/share/nix" # trusted settings and repl history
           ".mozilla"
           ".ssh"
-          # ".config/Code"
           ".vscode"
-          ".config"
+          ".config/Code"
+	  ".config/gnome-initial-setup-done"
+          #".config"
         ];
         files = [
           ".bash_history"
+	  ".config/monitors.xml"
+	  ".config/sops/age/keys.txt"
         ];
         allowOther = true;
       };
