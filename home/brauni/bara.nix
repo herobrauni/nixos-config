@@ -5,6 +5,7 @@
   imports = [
     ./global
     ./features/desktop/xfce
+    ./features/pkgs/remmina.nix
     # ./features/rgb
     # ./features/productivity
     # ./features/pass
