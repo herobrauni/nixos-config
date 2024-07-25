@@ -9,7 +9,7 @@ in {
   users.mutableUsers = false;
   users.users.brauni = {
     isNormalUser = true;
-    # shell = pkgs.fish;
+    shell = pkgs.zsh;
     extraGroups = ifTheyExist [
       "audio"
       "deluge"
