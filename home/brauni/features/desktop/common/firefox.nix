@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib,
+  config,
   ...
 }: {
   programs.firefox = {
@@ -10,7 +10,7 @@
   home = {
     persistence = {
       # Not persisting is safer
-      # "/persist/${config.home.homeDirectory}".directories = [ ".mozilla/firefox" ];
+      "/persist/${config.home.homeDirectory}".directories = [ ".mozilla" ];
     };
   };
 

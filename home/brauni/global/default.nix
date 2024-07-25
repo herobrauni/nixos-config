@@ -55,17 +55,14 @@
           "Videos"
           ".local/bin"
           ".local/share/nix" # trusted settings and repl history
-          ".mozilla"
           ".ssh"
-          ".vscode"
-          ".config/Code"
-	  ".config/gnome-initial-setup-done"
-          #".config"
+	        # ".config/xfce4"
         ];
         files = [
           ".bash_history"
 	  ".config/monitors.xml"
 	  ".config/sops/age/keys.txt"
+	  ".config/gnome-initial-setup-done"
         ];
         allowOther = true;
       };

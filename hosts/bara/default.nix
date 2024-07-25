@@ -60,10 +60,10 @@
 
   #services.displayManager.sddm.enable = true;
   #services.desktopManager.plasma6.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome .enable = true;
-  #services.xserver.desktopManager.xfce.enable = true;
-  #services.xserver.displayManager.lightdm.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome .enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
 
   # Configure console keymap
   console.keyMap = "us-acentos";
@@ -105,6 +105,7 @@
     fmt
     nixpkgs-fmt
     yubikey-personalization
+    ripgrep
   ];
 
   # This value determines the NixOS release from which the default

@@ -4,7 +4,7 @@
 }: {
   imports = [
     ./global
-    ./features/desktop/gnome
+    ./features/desktop/xfce
     # ./features/rgb
     # ./features/productivity
     # ./features/pass
