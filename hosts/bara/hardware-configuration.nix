@@ -28,7 +28,7 @@
     powerManagement.finegrained = lib.mkForce false;
 
     # Enable the Nvidia settings menu,
-	  # accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
@@ -38,6 +38,16 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
 
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
 
   networking.useDHCP = lib.mkDefault true;
 

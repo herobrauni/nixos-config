@@ -61,6 +61,7 @@
           ".config/monitors.xml"
           ".config/sops/age/keys.txt"
           ".config/gnome-initial-setup-done"
+	  ".config/pavucontrol.ini"
         ];
         allowOther = true;
       };

@@ -4,7 +4,7 @@
 }: {
   imports = [
     ./global
-    ./features/desktop/xfce
+    ./features/desktop/niri
     ./features/pkgs/remmina.nix
     # ./features/rgb
     # ./features/productivity
