@@ -16,6 +16,7 @@
     # ./qt.nix
     # ./sublime-music.nix
     ./vscode.nix
+    ./remmina.nix
   ];
 
   home.packages = [pkgs.libnotify];
